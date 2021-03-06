@@ -52,3 +52,22 @@ plt.plot(3,3,6),plt.imshow(images[5],'gray')
 plt.title(titles[5]), plt.xticks([]), plt.yticks([])
 
 """Fill the holes by a fullfill approach"""
+import numpy as np
+import matplotlib.pyplot as plt
+from skimage import data, filters, color, morphology
+from skimage.segmentation import flood, flood_fill
+
+#The seed point is chosen as (155, 150)
+light_coat = flood_fill(images[5], (200, 195), 255, tolerance=10)
+fig, ax = plt.subplots(ncols=2, figsize=(10, 5))
+
+ax[0].imshow(images[5], cmap=plt.cm.gray)
+ax[0].set_title('Original')
+ax[0].axis('off')
+
+ax[1].imshow(light_coat, cmap=plt.cm.gray)
+ax[1].plot(195, 200, 'ro')  # seed point
+ax[1].set_title('After flood fill')
+ax[1].axis('off')
+
+plt.show()
